@@ -10,40 +10,32 @@
  * @format
  */
 
-import React from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
-import Main from './src/screens/Main';
-import {NavigationContainer} from '@react-navigation/native';
-import MainSaler from './src/screens/Saler/screens/MainSaler';
-import MainNavigator from './src/navigations/MainNavigator';
-import StackScreen from './src/navigations/StackScreen';
+import React, {useCallback, useEffect} from 'react';
+import {AppRegistry, SafeAreaView, StyleSheet, LogBox} from 'react-native';
+import {Provider} from 'react-redux';
+import RouteApp from './RouteApp';
+import {name as appName} from './app.json';
+import {PersistGate} from 'redux-persist/integration/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {CURRENT_USER} from './src/constants';
+import {updateProfile} from './src/redux/reducers/profileReducer';
+import {IUserParams} from './src/models/Saler';
+import store, {persistor} from './src/redux/store';
+
+LogBox.ignoreLogs([
+  'deprecated-react-native-prop-types',
+  'react-native-gesture-handler',
+  'AsyncStorage has been extracted from react-native core',
+]);
 
 const App = () => {
   return (
-    <NavigationContainer>
-      {/* <Main /> */}
-      <StackScreen />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouteApp />
+      </PersistGate>
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

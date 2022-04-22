@@ -21,6 +21,8 @@ target 'myAPp' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
+
   target 'myAPpTests' do
     inherit! :complete
     # Pods for testing

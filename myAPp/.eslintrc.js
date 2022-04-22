@@ -10,7 +10,12 @@ module.exports = {
         '@typescript-eslint/no-shadow': ['error'],
         'no-shadow': 'off',
         'no-undef': 'off',
+        'no-empty-function': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
+        'react/display-name': 'off',
+        'react/prop-types': 'off',
       },
     },
   ],
 };
+// "prettier/prettier": ["error", {"singleQuote": true, "parser": "flow"}]

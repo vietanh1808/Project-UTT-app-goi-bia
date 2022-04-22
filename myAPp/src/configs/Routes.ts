@@ -1,5 +1,9 @@
 export const ROUTES = {
-  homeSaler: 'HomeSaler',
-  profileSaler: 'ProfileSaler',
+  homeSaler: 'HomeSalerScreen',
+  profileSaler: 'ProfileSalerScreen',
   destinationSaler: 'DestinationSalerScreen',
+  login: 'LoginScreen',
+  mainSaler: 'MainSalerScreen',
+  register: 'RegisterScreen',
+  mainDriver: 'MainDriverScreen',
 };

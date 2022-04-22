@@ -27,20 +27,24 @@ import Geolocation from '@react-native-community/geolocation';
 import {
   CloudBookingData,
   DEFAULT_ZOOM_MAP,
+  HEIGHT_WINDOW,
   MAX_ZOOM_MAP,
   MIN_ZOOM_MAP,
   PITCH_MAP,
-} from '../constants';
+  statusBar,
+} from '../../../constants';
 import Donut from '../../../components/Donut';
 import CloudFlatList from '../../../components/CloudFlatList';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import DestinationScreen from './DestinationScreen';
 import {ROUTES} from '../../../configs/Routes';
 import {useNavigation} from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import {useAppDispatch} from '../../../redux/store';
+import {updateDepature} from '../../../redux/reducers/salerLocationReducer';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../../redux/reducer';
 
-const HEIGHT_WINDOW = Dimensions.get('window').height;
-const statusBar = StatusBar.currentHeight || 0;
-const WIDTH_WINDOW = Dimensions.get('window').width;
 const defaultAddress: IAddress = {
   name: '',
   thoroughfare: '',
@@ -58,6 +62,9 @@ const MainSaler = () => {
   const _map = useRef<MapView>(null);
   const tabBarHeight = useBottomTabBarHeight();
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const user = useSelector((state: AppState) => state.profile);
+  console.log('Main: ', user);
 
   const [formAddress, setFormAddress] = useState<IFormAddress>({
     destination: defaultAddress,
@@ -190,7 +197,7 @@ const MainSaler = () => {
           </View>
           <View style={{justifyContent: 'space-between', marginLeft: 10}}>
             <TouchableOpacity>
-              <Text>
+              <Text numberOfLines={1}>
                 {' '}
                 {formatAddress(formAddress.departure) || 'Bạn đang ở đâu?'}
               </Text>
@@ -199,6 +206,7 @@ const MainSaler = () => {
             <TouchableOpacity
               onPress={() => {
                 // Save to Redux Store
+                // dispatch(updateDepature())
                 // Naviage Screen
                 navigation.navigate(
                   ROUTES.destinationSaler as never,
@@ -232,7 +240,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     elevation: 5,
     position: 'absolute',
-    height: 170,
+    height: 190,
     width: '90%',
     left: '5%',
   },
